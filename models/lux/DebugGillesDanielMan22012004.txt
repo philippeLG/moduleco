@@ -1,0 +1,98 @@
+J'ai effectue quelques modifications dans Moduleco (derniere version) au 
+code du modele de Lux a evenements discrets, etudie par Boitout et Delahaut.
+Voici la liste de mes modifications :
+
+1) deltaP re-initialisee (bug)
+------------------------------
+-----------
+Description
+-----------
+Lorsqu'on clique sur le bouton Create pour creer un nouveau monde, la 
+variable deltaP, qui fait partie des variables initialisees tout au dbut 
+dans world.setDefaultValues() mais n'est pas affichee dans le Panel, est 
+re-initialisee a 0, au lieu de conserver sa valeur originale.
+-----------
+Consequence
+-----------
+Dans ce nouveau monde, ni le prix P ni la valeur fondamentale Pf 
+n'evolueront, ce qui empeche les populations (proportions de 
+fondamentalistes FUND, d'optimistes OPT et de pessimistes PESS) d'evoluer.
+-----
+Patch
+-----
+Une solution rapide a ete d'inclure deltaP dans le Panel, et d'en faire 
+une variable que l'on peut modifier. deltaP n'est alors pas 
+re-initialisee a chaque creation d'un nouveau monde, ou plutot elle 
+l'est, mais a la bonne valeur.
+Ce probleme reste a regler plus proprement a un niveau superieur.
+
+
+2) market.newPf() non implementee
+---------------------------------
+-----------
+Description
+-----------
+La methode market.newPf(), sensee renvoyer la nouvelle valeur 
+fondamentale, renvoyait systematiquement la valeur precedente.
+-----------
+Consequence
+-----------
+La valeur fondamentale n'evoluait jamais
+-----
+Patch
+-----
+Pour l'instant, je la fais evoluer de maniere aleatoire a chaque pas, 
+mais selon le modele de Boitout et al., la variation de Pf est elle-meme 
+un evenement qui devrait etre mis en "concurrence" avec l'evolution des 
+populations et la variation de P. Tout comme P, la variation de Pf 
+devrait etre poissoniene.
+
+3) Bug dans market.newP()
+-------------------------
+-----------
+Description
+-----------
+Il y a un leger bug dans market.newP(), dans la competition entre 
+l'evolution des populations et la variation de P. Tous les cas ne sont 
+pas pris en compte dans les deux boucles if imbriquees, privilegiant en 
+moyenne la hausse de P au detriment de sa baisse.
+-----
+Patch
+-----
+La methode a ete modifiee pour se conformer au modele.
+
+
+4) Modification des parametres
+------------------------------
+-----------
+Description
+-----------
+Tel que decrit par Boitout et al., leur modele prevoit qu'a chaque pas, 
+10 evenements sont en competition, et le plus rapide s'executera : 6 
+evenements concernent l'evolution des populations (PESS<->OPT, 
+FUND<->OPT et FUND<->PESS), la variation de P (hausse ou baisse) et 
+celle de Pf (hausse ou baisse). A chaque pas, on doit donc calculer 10 
+transition rates, et leurs 10 waiting times, sachant que la duration de 
+ces evenements suit une loi exponentielle.
+Ce modele decrit donc l'evolution generale des populations et des prix, 
+mais n'est pas centre sur les individus eux-memes.
+Dans l'implementation actuelle du modele dans Moduleco, ces temps sont 
+calcules tout d'abord pour chaque individu, a chaque pas, ce qui accroit 
+considerablement les chances que le prochain evenement le plus rapide 
+sera une evolution d'un type de strategie (FUND, OPT ou PESS) vers une 
+autre, plutot qu'une variation de prix.
+Pour remedier a cela tout en gardant l'apect individu-centre de 
+l'approche de Moduleco, on doit donc reequilibrer la situation en 
+modifiant la valeur de quelques parametres, comme beta et deltaP.
+
+
+Voial pour les principales modifications. Les simulations "semblent" 
+naturelles maintenant, et il est interessant de voir que des evenements 
+observes empiriquement comme des crash rampants peuvent etre obtenus 
+tres aisement en modifiant legerement le modele original, et la 
+definition de l'Excess Demand en particulier. 
+-- 
+Gilles Daniel                  gilles@cs.man.ac.uk
+University of Manchester, UK   www.cs.man.ac.uk/~danielg
+ 
+ 

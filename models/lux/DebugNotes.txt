@@ -1,0 +1,77 @@
+CREATE
+// N agents et M ExtraAgents
+world.getInfo()
+worldEditorPanel.addCompetitorPanel() nbC =2
+
+*jusqu'ici tout va bien...
+*mon parent est : grapheco.EPanel
+*jusqu'ici tout va bien...
+*mon parent est : grapheco.EPanel
+*je prends les valeurs precedentes.
+*debut chargement valeurs precedentes
+*taille : 1
+*iterations...
+*fin chargement valeurs precedentes
+
+agent.constructeur 	// N fois (plm ID) :
+			// construit un nouveau NeighbourMedium()
+agent.getInfo() 	// N fois : transfert des paramètres du monde
+ ../..
+world.populate() - DEBUT
+ - competitor.constructeur	// M fois :  
+ - competitor getInfo() 	// M fois :
+				// transfert de variables (vérifier)
+ ../..
+ - marketConstructor
+world.populate()FIN
+ 
+world.getMarket() 	// M+ N fois ? : appelée dans agent.init()
+			// et dans competitor.int() double emploi ?
+			// getMarket() retourne un objet
+			// (Market) mediumsInWorld[0];
+ ../..
+world.connect()	// Methode (vide mais non abstraite) de EWorld
+		//appelée par EWorld.connectAll()  
+agent.init()   // N fois 
+	// methodes invoquées dans agent.init() :
+	// (exécutés N fois = nbAgent) 
+	neighbours = ((NeighbourMedium) mediums[0]).getNeighbours();
+	// neighbours est l'ArrayList des voisins de l'agent	
+	// classe medium.NeighbourMedium extends medium.Medium 
+	market = ((World) world).getMarket();
+	nbCompetitors = market.getNbCompetitors();
+	//  fin agent.init()) 
+../..
+competitor Init()  	// M fois 
+	world.getMarket()  (méthode invoquée dans : competitor Init() )
+../..
+			// fin M fois
+market.init()-DEBUT
+ - market.getNbCompetitors () / return : 2
+ - marketClear()
+ - marketClear() //  ? voir pourquoi 2 fois ?
+ - market.givePrice
+ - competitor.setMenuPrice()
+ - market.givePrice
+ - competitor.setMenuPrice()
+ - agent.marketOpen()
+ - agent.setMenuPrice()
+	// agent.getTheta() > methode appelée N fois
+	// uniquement à la première création du monde
+market.init()-FIN
+
+world.init()
+WorldConstructor
+ world.getPreferredStaticRepresentation()
+ world.getPreferredDynamicRepresentation()
+ agent.getState() // N fois
+ ../..
+world.getNbCompetitors()
+
+Graphique.NbFirm = 2
+ ===================
+ 
+agent.getState()
+ //methode appelée ultérieurement à chaque mise à jour du graphique canevas
+agent.getDescriptors()
+//methode appelée à la première ouverture d'un EditAgent (mais pas aux appels ultérieurs)

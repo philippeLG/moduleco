@@ -1,0 +1,27 @@
+world.getInfo()
+worldEditorPanel.addCompetitorPanel() 
+agentConstructor
+agent.getInfo()
+../..
+world.populate()-DEBUT
+competitorConstructor
+competitor.getInfo()
+../..
+marketConstructor
+world.populate()-FIN
+world.connect()
+agent.init
+../..
+Competitor Init
+../..
+market.init()-DEBUT
+marketClear()
+marketClear()
+competitor.setMenuPrice
+../..
+agent.setMenuPrice
+../..
+agent.marketOpen()
+market.init()-FIN
+world.Init()
+worldConstructor

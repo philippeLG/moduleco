@@ -1,0 +1,80 @@
+Fichiers modfifiés : centralControl CBufferedCanevas Graphique et Canevas
+Transitoire
+EWorld descriptors > public
+EPanel left & righRepresentation >  public
+
+
+normal :
+
+discreteChoice.World.constructeur
+CentralControl.create() > super.setCAgent(eWorld)
+Canevas.setCAgent()
+Canevas.draw()
+
+version etendue :
+
+discreteChoice.World.constructeur
+CentralControl.create() > super.setCAgent(eWorld)
+CAgentRepresentationContainer.setCAgent(eWorld) from CentralContro
+EPanel.setCAgent
+EPanel.setLeftRepresentation()
+EPanel.setCAgent()setRightRepresentation
+EPanel.setRightRepresentation()
+Canevas.setCAgent()
+EPanel.setCAgent() - FIN
+Canevas.draw()
+
+====================
+
+Bugs :
+Seed2 : 5 P = 1.0022 N = 1288 profit = 1290.8336
+CBufferedCanvas.setDrawAble : false
+agent 0 theta= 0.0996806812001513
+Canevas.draw() size = 0
+Canevas.draw() size = 0
+grapheco.graphix.Graphique.draw(): statManager > java.lang.NullPointerException
+
+
+
+Bug :
+discreteChoice.World.constructeur
+185 CentralControl.create() > super.setCAgent(eWorld)
+
+Canevas.draw() <<<< Cette methode ne devrait se trouver ici !!!
+
+java.lang.ArithmeticException: / by zero
+        at modulecoFramework.grapheco.Canevas.draw(Canevas.java:115)
+../..
+Canevas.setCAgent()
+Canevas.draw()
+
+version etendue :
+
+discreteChoice.World.constructeur
+CentralControl.create() > super.setCAgent(eWorld)
+CAgentRepresentationContainer.setCAgent(eWorld) from CentralControl
+EPanel.setCAgent
+Canevas.draw()
+java.lang.ArithmeticException: / by zero
+        at modulecoFramework.grapheco.Canevas.draw(Canevas.java:115)
+        
+        at java.awt.EventDispatchThread.run(EventDispatchThread.java:98)
+EPanel.setLeftRepresentation()
+
+EPanel.setCAgent()setRightRepresentation
+===============source de l'erreur
+Canevas.draw()
+instancié par remove((java.awt.Component)rightRepresentation);
+===============================================================
+java.lang.ArithmeticException: / by zero
+        at modulecoFramework.grapheco.Canevas.draw(Canevas.java:115)
+      
+        at java.awt.EventDispatchThread.run(EventDispatchThread.java:98)
+EPanel.setRightRepresentation()
+
+Canevas.setCAgent()
+
+java.lang.NullPointerException
+        at modulecoFramework.grapheco.graphix.Graphique.draw(Graphique.java:211)
+
+EPanel.setCAgent() - FIN

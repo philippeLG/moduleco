@@ -1,0 +1,4 @@
+le prix p envoie son temps
+updater les xpess,xopt,xfond
+envoyer en format excel (matlab?) T,P,xopt,xpess,xfond
+p=exp(...Ed=agregation))

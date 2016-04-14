@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!-- 
+
+ANT file to build MODULECO
+
+Information about ANT can be found here:
+http://ant.apache.org/manual/index.html
+
+Information about MODULECO can be found here:
+http://www.cs.man.ac.uk/ai/public/moduleco
+
+Directories:
+
+/src			Source files for modulecoFramework and modulecoGUI (.java files)
+/build			Binaries for modulecoFramework, modulecoGUI and models (.class files)
+/lib			Jar file (moduleco.jar and examples.jar)
+/models			Models (sources files only)
+/docs			Documentation (license, javadoc, etc.)
+/outputs		Outputs of the simulations (.csv)
+
+Usage:
+
+> ant clean					Clean the directories build, lib, docs and outputs
+> ant init					Initialise the directories build, lib, docs and outputs
+> ant compile-application	Compile the application (Core and GUI) and generate the jar file (lib/moduleco.jar)
+> ant compile-models		Compile the models and generate the jar file (lib/models.jar)
+> ant distribute 			Create a small package to distribute, with no javadoc or build directories
+> ant javadoc				Generate the Javadoc
+
+-->
+
+<project name="MODULECO" default="init" basedir=".">
+
+	<!-- Set the src and build directories -->
+	<property name="srcApplication.dir" value="src" />
+	<property name="srcModels.dir" value="models" />
+	<property name="build.dir" value="build" />
+	<property name="jar.dir" value="lib" />
+	<property name="outputs.dir" value="outputs" />
+	<property name="docs.dir" value="docs" />
+	<property name="javadoc.dir" value="${docs.dir}/javadoc" />
+	
+	<!-- Clean -->
+	<target name="clean" description="Clean the directories build, lib, docs and outputs">
+		<delete dir="${build.dir}" />
+		<delete dir="${jar.dir}" />
+		<delete dir="${docs.dir}" />
+		<delete dir="${outputs.dir}" />
+	</target>
+	
+	<!-- Initialise the directories build, lib, docs and outputs -->
+	<target name="init" description="Initialise the directories build, lib, docs and outputs">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${jar.dir}" />
+		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${outputs.dir}" />
+	</target>
+	
+	<!-- Clean and regenerate the build directory -->
+	<target name="cleanBuild" description="Clean the build directory">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}" />
+	</target>
+	
+	<!-- Compile Application (Core and GUI) and generate the jar file (lib/moduleco.jar) -->
+	<target name="compile-application" depends="init,cleanBuild" description="Compile the application (Core and GUI) and generate the jar file (lib/moduleco.jar)">
+		<javac srcdir="${srcApplication.dir}" destdir="${build.dir}" />
+		<jar basedir="${build.dir}" destfile="${jar.dir}/moduleco.jar" manifest="${srcApplication.dir}/manifest" />
+	</target>
+	
+	<!-- Compile Models and generate the jar file (lib/models/jar) -->
+	<target name="compile-models" depends="init,cleanBuild" description="Compile the models in /models and generate the jar file (lib/models.jar)">
+		<javac	srcdir="${srcModels.dir}" destdir="${build.dir}" classpath="${jar.dir}/moduleco.jar" />
+		<jar basedir="${build.dir}" destfile="${jar.dir}/models.jar" />
+	</target>
+	
+	<!-- Distribute -->
+	<target name="distribute" depends="clean, init, compile-application, compile-models" description="Create a small package to distribute, with no doc or build directories">
+		<delete dir="${docs.dir}" />
+		<delete dir="${build.dir}" />
+	</target>
+	
+	<!-- Run -->
+	 <!--
+	<target name="run" description="Launch Moduleco">
+		<java jar="${jar.dir}/moduleco.jar" classpath="${buildModels.dir}" fork="yes" />
+	</target>
+	-->
+	
+	<!-- Javadoc -->
+	<target name="javadoc" depends="init" description="Generate the Javadoc">
+		<delete dir="${javadoc.dir}" />
+        <mkdir dir="${javadoc.dir}" />
+        <javadoc packagenames="*" 
+				sourcepath="${srcApplication.dir}:."
+        		classpath="${jar.dir}/moduleco.jar"
+        		destdir="${javadoc.dir}" author="true" version="true" Public="true" Windowtitle="MODULECO Javadoc">
+			<group title="Models" packages="models*"/>
+        	<group title="Core" packages="modulecoFramework*"/>
+        	<group title="GUI" packages="modulecoGUI*"/>
+        </javadoc>
+	</target>
+	
+</project>

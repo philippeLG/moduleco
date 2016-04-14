@@ -1,0 +1,35 @@
+agent : 0  # 1 stateC =  0 # 3 stateC = 0 # 2 stateC = 0 # 6 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 1 stateC = 0 # 3 stateC = 0 # 2 stateC = 0 # 6 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0agent.marketOpen
+
+agent : 1  # 2 stateC = 0 # 4 stateC = 0 # 0 stateC = 0 # 7 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 2 stateC = 0 # 4 stateC = 0 # 0 stateC = 0 # 7 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0
+
+agent : 2  # 0 stateC = 0 # 5 stateC = 0 # 1 stateC = 0 # 8 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 0 stateC = 0 # 5 stateC = 0 # 1 stateC = 0 # 8 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0
+
+agent : 3  # 4 stateC = 0 # 6 stateC = 0 # 5 stateC = 0 # 0 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 4 stateC = 0 # 6 stateC = 0 # 5 stateC = 0 # 0 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0
+
+agent : 4  # 5 stateC = 0 # 7 stateC = 0 # 3 stateC = 0 # 1 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 5 stateC = 0 # 7 stateC = 0 # 3 stateC = 0 # 1 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0
+
+agent : 5  # 3 stateC = 0 # 8 stateC = 0 # 4 stateC = 2 # 2 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 3 stateC = 0 # 8 stateC = 0 # 4 stateC = 2 # 2 stateC = 0 Comp : 2 nbSubscriber : 1
+N[1]=0.25
+
+agent : 6  # 7 stateC = 0 # 0 stateC = 0 # 8 stateC = 0 # 3 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 7 stateC = 0 # 0 stateC = 0 # 8 stateC = 0 # 3 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0
+
+agent : 7  # 8 stateC = 0 # 1 stateC = 0 # 6 stateC = 0 # 4 stateC = 2 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 8 stateC = 0 # 1 stateC = 0 # 6 stateC = 0 # 4 stateC = 2 Comp : 2 nbSubscriber : 1
+N[1]=0.25
+
+agent : 8  # 6 stateC = 0 # 2 stateC = 0 # 7 stateC = 0 # 5 stateC = 0 Comp : 1 nbSubscriber : 0
+N[0]=0.0 # 6 stateC = 0 # 2 stateC = 0 # 7 stateC = 0 # 5 stateC = 0 Comp : 2 nbSubscriber : 0
+N[1]=0.0WorldInit
